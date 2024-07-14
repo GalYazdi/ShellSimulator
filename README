@@ -1,0 +1,110 @@
+Shell Simulator
+Authored by Gal Yazdi
+ID - 318807526
+
+==Description==
+This custom shell program allows users to execute commands, handle aliases, manage background processes, and run scripts. It also supports advanced command execution features such as error redirection and logical operators.
+
+
+Defining aliases for commands.
+Removing defined aliases.
+Executing standard shell commands.
+Executing commands from a script file.
+Keeping track of the number of executed commands, active aliases, number of quotes in successful commands and script lines processed.
+A linked list structure to store aliases
+A linked list structure to store jobs
+A linked list structure to store logical commands
+Running commands in the background using &.
+Printing a list of jobs with their job ID and command
+Execute logical operators commands
+
+==Functions:==
+void insert(Node **head, const char *key, const char *value); - Inserts a new alias into the linked list.
+
+char *search(Node *head, const char *key); - Searches for an alias by key and returns its value.
+
+int aliasExists(Node *head, const char *key); - Checks if an alias exists by key.
+
+void delete(Node **head, const char *key); - Deletes an alias by key.
+
+void free_Alias_List(Node *head); - Frees all nodes in the alias linked list.
+
+void print_Alias_List(Node *head); - Prints all aliases.
+
+Add an new background process
+void addJob(Job **jobList, int pid, const char *command)
+
+void deleteJob(Job **jobList, int pid)
+
+void freeJobList(Job *jobList)
+
+Command Execution:
+void executeCommand(char args[], int *cmdSuccess, int success); - Forks and executes a command.
+
+Handles signals that child send to parent:
+void handler(int num);
+
+Handles alias command parsing and execution:
+void aliasCommand(Node** alias, char* args[], const int* i, int* cmdSuccess, int* activeAlias);
+
+Handles unalias command execution:
+void unaliasCommand(Node *alias, char *args[], const int argsCounter, int activeAlias, int cmdSuccess);
+
+Parses a command string into arguments:
+void parseCommand(char *command, char *args[], int *arg_count, int size);
+
+ Parses commands with logical operators:
+void handleConditionalCommands(char* input, Command commands[], int maxCommands, Node** alias, int* quotes);
+
+Executes a command in with logical operators:
+void executeConditionalCommands(Command commands[], char* args[], int count, int* argsCount, int* flag);
+
+Prints a list of jobs with their job ID and command.
+void printJobs(Job *jobList);
+
+
+Utilities:
+int countQuotes(const char command[], int size, int* counter); - Counts the number of quotes in a command.
+
+int checkIfExit(char* args[], int numOfQuotes); - Checks if the command is exit_shell.
+
+Handles alias expansion for commands -
+void aliasWord(Node alias, char command, int cmdLength, char args[], char copyArgs[], int *arg_count, int cmdSuccess, int success);
+
+Processes a script file line by line -
+void scriptCase(Node** alias, char args[], char copyArgs[], int *arg_count, int *cmdSuccess, int *activeAlias, int *scriptLines, int success, int quotesCounter);
+
+Checks if a command is a background command
+void findAmper(char* command, int size)
+
+Checks if a command is Redirects standard error (stderr) to a specified file. 
+int sterrCase(const char* command, int size)
+
+Extract the file name in case of redirects standard errors
+void extractRedirectionFilename(char *command, char *filenameBuffer, int* fileExist)
+
+Determines if command contains logical operators.
+int checkIfAndOrCase (const char* command, int size)
+
+==Example for Input/Output==
+
+==Input==
+echo 1 && echo 2 && echo 3
+ls -yy 2> E
+cat E
+sleep 30 &
+jobs
+
+==Output==
+1
+2
+3
+ls: invalid option -- 'y'
+Try 'ls --help' for more information.
+[1]               sleep 30 &
+
+==How to run?==
+The program was compiled into a script named run_me.sh
+run: ./run_me.sh
+
+

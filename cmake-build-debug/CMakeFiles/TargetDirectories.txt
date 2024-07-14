@@ -1,0 +1,3 @@
+/home/student/CLionProjects/ex2V2/cmake-build-debug/CMakeFiles/ex2V2.dir
+/home/student/CLionProjects/ex2V2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/student/CLionProjects/ex2V2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
